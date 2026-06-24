@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["buyer", "seller", "both", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "onboarded": { "type": "boolean" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Agent": {
+      "title": "Agent",
+      "description": "AI Agent details optimized for marketplace listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "creatorId": { "type": "string" },
+        "creatorName": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "salesCount": { "type": "number" },
+        "externalUrl": { "type": "string" },
+        "accessInstructions": { "type": "string" },
+        "isPublished": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "description", "creatorId", "externalUrl"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User review for an agent",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "agentId": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "agentId", "rating", "createdAt"]
+    },
+    "Purchase": {
+      "title": "Purchase",
+      "description": "Record of an agent purchase",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "agentId": { "type": "string" },
+        "agentName": { "type": "string" },
+        "price": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "agentId", "createdAt"]
+    },
+    "Run": {
+      "title": "Run",
+      "description": "Agent execution record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "agentId": { "type": "string" },
+        "agentName": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "agentId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/agents/{agentId}": {
+      "schema": "Agent",
+      "description": "AI Agents in the marketplace"
+    },
+    "/runs/{runId}": {
+      "schema": "Run",
+      "description": "Agent execution history"
+    },
+    "/purchases/{purchaseId}": {
+      "schema": "Purchase",
+      "description": "Agent purchase records"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Agent reviews"
+    }
+  }
+}
